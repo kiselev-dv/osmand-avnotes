@@ -8,3 +8,6 @@ Don't forget to convert .3gp to .wav first.
 
     ls -1 | grep .3gp$ | xargs -I {f} echo "avconv -i {f} {f}.wav" | bash
   
+After this 
+
+    java -jar av-notes.jar /home/kiselev-dv/avnotes/
