@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,6 +21,8 @@ import java.util.List;
 
 
 public class Shortlink {
+	
+	private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
 	public static void main(String[] args) {
 		
@@ -76,7 +79,7 @@ public class Shortlink {
 				out.println("<wpt lat=\"" + wpt.lat + "\" lon=\"" + wpt.lon + "\">");
 				
 				out.println("<time>");
-				out.println(wpt.d.toString());
+				out.println(simpleDateFormat.format(wpt.d));
 				out.println("</time>");
 				
 				out.println("<link href=\"" + wpt.f.getName() + "\">");
