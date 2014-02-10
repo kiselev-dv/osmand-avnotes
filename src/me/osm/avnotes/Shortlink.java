@@ -2,10 +2,7 @@ package me.osm.avnotes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -69,6 +66,7 @@ public class Shortlink {
 		
 		PrintStream out = null;
 		try {
+
 			out = new PrintStream(FileSystems.getDefault().getPath(location.getAbsolutePath(), "avnotes.gpx").toFile());
 			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>");
 			out.println("<gpx version=\"1.1\" creator=\"OsmAnd~\" " +
@@ -79,7 +77,7 @@ public class Shortlink {
 				out.println("<wpt lat=\"" + wpt.lat + "\" lon=\"" + wpt.lon + "\">");
 				
 				out.println("<time>");
-				out.println(simpleDateFormat.format(wpt.d));
+				out.println(dateToString(wpt.d));
 				out.println("</time>");
 				
 				out.println("<link href=\"" + wpt.f.getName() + "\">");
@@ -97,11 +95,17 @@ public class Shortlink {
 		} 
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 		finally {
 			if(out !=null)
 				out.close();
 		}
+	}
+
+	private static String dateToString(Date date) {
+		StringBuilder sb = new StringBuilder(simpleDateFormat.format(date));
+        sb.insert(22, ':');
+        return sb.toString();
 	}
 	
 	public static class WPT {
